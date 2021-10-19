@@ -1,0 +1,3 @@
+https://hub.docker.com/repository/docker/nafeej/sentiment-analysis-frontend
+https://hub.docker.com/repository/docker/nafeej/sentiment-analysis-logic
+https://hub.docker.com/repository/docker/nafeej/sentiment-analysis-webapp
