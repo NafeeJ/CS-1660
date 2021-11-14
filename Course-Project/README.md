@@ -1,4 +1,4 @@
-### Course Project - Big Data Toolbox
+# Course Project - Big Data Toolbox
 
 Microservice Docker image URLs:
 * https://hub.docker.com/r/sequenceiq/hadoop-docker
