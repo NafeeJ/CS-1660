@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyter-deployment
+  labels:
+    app: jupyter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyter
+  template:
+    metadata:
+      labels:
+        app: jupyter
+    spec:
+      containers:
+      - name: jupyter
+        image: jupyter/minimal-notebook
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+        command:
+            - /bin/bash
+            - -c
+            - |
+              start.sh jupyter notebook --NotebookApp.token='' --NotebookApp.password=''
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyter-service
+  labels:
+    app: jupyter-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    app: jupyter
+  sessionAffinity: None
