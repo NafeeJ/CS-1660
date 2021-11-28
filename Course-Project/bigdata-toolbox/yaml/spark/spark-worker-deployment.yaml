@@ -6,7 +6,7 @@ metadata:
     kompose.version: 1.24.0 (7c629530)
   creationTimestamp: null
   labels:
-    io.kompose.service: spark-worker
+    io.kompose.service: spark-worker-deployment
   name: spark-worker
 spec:
   replicas: 1
