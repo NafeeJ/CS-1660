@@ -22,11 +22,13 @@ docker exec -it (YOUR_CONTAINER_ID) bash
 
 4. Create GCP project (skip if you have one already)
     * Go to [https://console.cloud.google.com/](https://console.cloud.google.com/)
-    * Click "Select a project"\
+    * Click "Select a project"
     <img src="select_project.jpg">
-    * Click "New project"\
+    
+    * Click "New project"
     <img src="new_project.jpg">
-    * Set up project name and ID and click "Create"\
+    
+    * Set up project name and ID and click "Create"
     <img src="create_project.jpg">
 
 5. Authorize glcoud
@@ -41,25 +43,32 @@ gcloud config set project (YOUR_PROJECT_ID)
 ```
 
 7. Set up kubernetes cluster (skip if you have one already)
-    * Search for Kubernetes Engine in GCP\
+    * Search for Kubernetes Engine in GCP
     <img src="kube_search.jpg">
-    * Enable Kubernetes API\
+    
+    * Enable Kubernetes API
     <img src="kube_enable.jpg">
-    * Create cluster\
+    
+    * Create cluster
     <img src="kube_create.jpg">
-    * Choose autopilot mode\
+    
+    * Choose autopilot mode
     <img src="kube_mode.jpg">
-    * Name cluster and click create\
+    
+    * Name cluster and click create
     <img src="kube_create2.jpg">
 
 8. Connect cluster to container
-    * Click on cluster\
+    * Click on cluster
     <img src="cluster_click.jpg">
-    * Click on connect\
+    
+    * Click on connect
     <img src="cluster_connect.jpg">
-    * Copy command\
+    
+    * Copy command
     <img src="cluster_copy.jpg">
-    * Paste command in shell\
+    
+    * Paste command in shell
     <img src="cluster_paste.jpg">
 
 9. Run driver
