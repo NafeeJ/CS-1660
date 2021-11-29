@@ -1,7 +1,7 @@
 # Course Project - Big Data Toolbox
 
 ## Run this project
-Below are the steps needed to run this project on your Docker Engine. It is assumed that you want to run on a Google Kubernetes Engine Cluster
+Below are the steps needed to run this project on your Docker Engine. It is assumed that you want to run on a Google Kubernetes Engine Cluster and have Docker installed
 
 1. Pull Docker image
 ```
