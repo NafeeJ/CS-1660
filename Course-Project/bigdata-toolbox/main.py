@@ -1,5 +1,6 @@
 from kubernetes import client, config, utils
 from kubernetes.client.rest import ApiException
+from kubernetes.stream import stream
 import time
 
 config.load_kube_config()
@@ -29,6 +30,7 @@ deployments = [
 
 def create(path, name):
     print(f"creating: '{name}'...")
+    # utils.create_from_yaml(kube_client, path)
     try:
         utils.create_from_yaml(kube_client, path)
         print(f"'{name}' created")
@@ -68,7 +70,8 @@ while not ready:
     for pod in pods_response.items:
         status = pod.status.phase
         if status != "Running":
-            print(f"Waiting on pod '{pod.metadata.name}' with status '{pod.status.container_statuses[0].state.waiting.reason}'...")
+            # print(pod.status)
+            print(f"Waiting on pod '{pod.metadata.name}' ...")
             not_running = False
     ready = not_running
     if ready == False:
@@ -83,12 +86,18 @@ for service in services_response.items:
     ingress = service.status.load_balancer.ingress
     external_ip = None
     if ingress:
+        while ingress[0].ip == None or ingress[0].ip == "None":
+            print(f"External IP pending for {service.metadata.name}")
+            time.sleep(1)
         if ingress[0].ip:
+            # print(ingress)
             external_ip = ingress[0].ip
         else:
             external_ip = "localhost"
     if service.metadata.name in ports:
+        # print(f"URL: {external_ip}:{ports[service.metadata.name]}")
         urls[service.metadata.name] = f"{external_ip}:{ports[service.metadata.name]}"
+
 
 print("----------")
 
@@ -111,9 +120,24 @@ while True:
         if app == 1:
             print("Launching Apache Hadoop")
         elif app == 2:
+            pods_response = kube_core.list_pod_for_all_namespaces()
+            worker = ""
+            for pod in pods_response.items:
+                if "sparkworker" in pod.metadata.name:
+                    worker = pod.metadata.name
+            cmd = ['bash']
+            print(f"WORKER {worker}")
+            stream(kube_core.connect_get_namespaced_pod_exec,
+                  worker,
+                  'default',
+                  command=cmd,
+                  stderr=True, stdin=True,
+                  stdout=True, tty=True,
+                  _preload_content=False)
             print(f"Follow the URL: http://{urls['spark-service']}")
         elif app == 3:
             print(f"Follow the URL: http://{urls['jupyter-service']}")
+
         elif app == 4:
             print("Launching SonarQube and SonarScanner")
         elif app == 5:
